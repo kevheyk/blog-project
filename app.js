@@ -17,13 +17,19 @@ app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
 
+// Global Var
+
+const posts = [];
+console.log(posts);
 // GET Home Route
 app.get("/", function(req, res){
   res.render("home",{
-    homeStartingContent: homeStartingContent
+    homeStartingContent: homeStartingContent,
+    posts: posts
   });
-  
+
 });
+
 
 // GET About Route
 app.get("/about", function(req, res){
@@ -49,9 +55,29 @@ app.get("/compose", function(req, res){
   
 });
 
+app.post("/compose", function(req, res){
+  
+  const post = {
+    postTitle: req.body.postTitle,
+    postBody: req.body.postBody
+  };
+  posts.push(post)
+  res.redirect("/");
 
 
+});
 
+
+// GET PostID
+app.get("/posts/:postID", function(req, res){
+  console.log(req.params.postID);
+  if(posts.filter(post => post.postTitle === req.params.postID).length>0){
+    console.log("Match Found")
+  } else{
+    console.log("Post Not Found")
+  }
+  res.redirect("/");
+})
 
 
 
