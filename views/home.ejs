@@ -1,12 +1,17 @@
-<%- include("partials/header") %> 
+<%- include("partials/header") %>
 
 <h1>Home</h1>
-<p><%= homeStartingContent %> </p>
+<p><%= homeStartingContent %></p>
 <div>
   <% posts.forEach(post => { %>
-   <h1><%= post.postTitle %> </h1>
-   <p><%= post.postBody %> </p>
+  <h1><%= post.postTitle %></h1>
+  <!-- Show the first 100 character of post -->
+  <p>
+    <%= post.postBody.substr(0,99) + "..." %>
+    <a href="posts/<%= post.postTitle %>">Read More</a>
+  </p>
+
   <% }) %>
 </div>
 
-<%- include("partials/footer") %> 
+<%- include("partials/footer") %>
